@@ -7,7 +7,7 @@ public class InputManagerSingleton {
 
     private static InputWrapper instance = null;
 
-    public static InputWrapper getInstance() {
+    protected static InputWrapper getInstance() {
         if (instance == null) {
             if (Constants.CURRENT_PLATFORM == Constants.PLATFORM.DESKTOP) {
                 instance = new DesktopInputs();

@@ -5,6 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.ArrayList;
@@ -23,9 +25,7 @@ public class GdxGame extends ApplicationAdapter {
 
 	SpriteBatch batch;
 	final List<Actor> actors = new ArrayList<Actor>();
-
-	Body ground;
-
+	TiledMap tiledMap;
 
 	@Override
 	public void create() {
@@ -36,29 +36,11 @@ public class GdxGame extends ApplicationAdapter {
 		camera.position.set(camera.viewportWidth * 0.5f, camera.viewportHeight * 0.5f, 0f);
 		camera.update();
 
-
 		batch = new SpriteBatch();
 		actors.add(new GameCharacter("characters/character.png"));
 		actors.add(new Obstacle("map/black.png"));
 
-		//static body
-		/*
-		BodyDef staticBodyDef = new BodyDef();
-		staticBodyDef.type = BodyDef.BodyType.StaticBody;
-		staticBodyDef.position.set(Vector2.Zero);
-		ground = world.createBody(staticBodyDef);
-		PolygonShape groundShape = new PolygonShape();
-		groundShape.setAsBox(1000.0f, sprite.getHeight() * 0.5f);
-
-		FixtureDef groundFixtureDef = new FixtureDef();
-		groundFixtureDef.shape = groundShape;
-		groundFixtureDef.density = 1f;
-		groundFixtureDef.restitution = 0.0f;
-
-		Fixture groundFixture = ground.createFixture(groundFixtureDef);
-		groundShape.dispose();
-		*/
-		//end static body
+		tiledMap = new TmxMapLoader().load("map/simpleLevel.tmx");
 
 	}
 
@@ -77,6 +59,7 @@ public class GdxGame extends ApplicationAdapter {
 		batch.begin();
 		actors.forEach(actor -> actor.render(batch));
 		batch.end();
+
 	}
 
 	@Override
