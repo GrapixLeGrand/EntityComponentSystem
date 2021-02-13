@@ -1,4 +1,4 @@
-package game.character;
+package game.actors;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 

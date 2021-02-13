@@ -2,24 +2,18 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Matrix3;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
-import java.nio.file.Path;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import game.character.Actor;
-import game.character.Constants;
-import game.character.GameCharacter;
+import game.actors.Actor;
+import game.actors.Constants;
+import game.actors.GameCharacter;
+import game.actors.Obstacle;
 import game.system.Box2DSingleton;
 
 
@@ -45,6 +39,7 @@ public class GdxGame extends ApplicationAdapter {
 
 		batch = new SpriteBatch();
 		actors.add(new GameCharacter("characters/character.png"));
+		actors.add(new Obstacle("map/black.png"));
 
 		//static body
 		/*
@@ -86,7 +81,6 @@ public class GdxGame extends ApplicationAdapter {
 
 	@Override
 	public void dispose() {
-		// Hey, I actually did some clean up in a code sample!
 		actors.forEach(actor -> actor.dispose());
 		Box2DSingleton.getInstance().dispose();
 	}
