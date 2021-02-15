@@ -14,17 +14,17 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import game.system.Box2DSingleton;
 import game.system.inputs.InputProvider;
 
-public class GameCharacter extends Actor {
+public class MainCharacter extends Actor {
 
     private Sprite sprite;
     private Texture img;
     private Body body;
-    private float spriteScaleFactor = Constants.ZOOM_FACTOR;
+    private float spriteScaleFactor = 1.0f;
     private float speed = 0.1f * Constants.ZOOM_FACTOR;
     private float decreaseFactor = 0.5f * Constants.ZOOM_FACTOR;
     private float maxSpeed = 10.0f;
 
-    public GameCharacter(final String spritePath) {
+    public MainCharacter(final String spritePath, final Vector2 position) {
 
         if (spritePath == null) {
             throw new IllegalArgumentException("sprite path cannot be null");
@@ -33,11 +33,11 @@ public class GameCharacter extends Actor {
         img = new Texture(spritePath);
         sprite = new Sprite(img);
 
-        sprite.setSize(img.getWidth() * spriteScaleFactor * game.actors.Constants.WORLD_TO_BOX,
-                img.getHeight() * spriteScaleFactor * game.actors.Constants.WORLD_TO_BOX);
+        sprite.setSize(img.getWidth() * spriteScaleFactor * Constants.WORLD_TO_BOX,
+                img.getHeight() *  spriteScaleFactor * Constants.WORLD_TO_BOX);
         sprite.setOrigin(sprite.getWidth() * 0.5f, sprite.getHeight() * 0.5f);
-        sprite.setOriginBasedPosition(Gdx.graphics.getWidth() * game.actors.Constants.WORLD_TO_BOX * 0.5f,
-                Gdx.graphics.getHeight() * game.actors.Constants.WORLD_TO_BOX * 0.5f);
+        sprite.setOriginBasedPosition(position.x * game.actors.Constants.WORLD_TO_BOX * 0.5f,
+                position.y * game.actors.Constants.WORLD_TO_BOX * 0.5f);
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -62,8 +62,11 @@ public class GameCharacter extends Actor {
     @Override
     public void update() {
 
-        Vector2 mousePos = new Vector2(Gdx.input.getX() * game.actors.Constants.WORLD_TO_BOX, (Gdx.graphics.getHeight() - Gdx.input.getY()) * Constants.WORLD_TO_BOX);
-        Vector2 playerToMouse = mousePos.sub(body.getPosition()).nor();
+        Vector2 mousePosWorld = new Vector2(Gdx.input.getX() * Constants.WORLD_TO_BOX, (Gdx.graphics.getHeight() - Gdx.input.getY()) * Constants.WORLD_TO_BOX);
+        Vector2 screenDimsWorld = new Vector2(Gdx.graphics.getWidth() * Constants.WORLD_TO_BOX, Gdx.graphics.getHeight() * Constants.WORLD_TO_BOX);
+        mousePosWorld.add(body.getPosition());
+        mousePosWorld.sub(screenDimsWorld.scl(0.5f));
+        Vector2 playerToMouse = mousePosWorld.sub(body.getPosition()).nor();
 
         sprite.setRotation(playerToMouse.angleDeg() + 270);
 
@@ -125,4 +128,9 @@ public class GameCharacter extends Actor {
     public void dispose() {
         img.dispose();
     }
+
+    public Vector2 getPosition() {
+        return body.getPosition();
+    }
+
 }

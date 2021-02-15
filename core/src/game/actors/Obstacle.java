@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -19,7 +20,7 @@ public class Obstacle extends Actor {
     private Body body;
     private float spriteScaleFactor = Constants.ZOOM_FACTOR;
 
-    public Obstacle(String spritePath) {
+    public Obstacle(String spritePath, Vector2 position, float width, float height) {
         if (spritePath == null) {
             throw new IllegalArgumentException("sprite path cannot be null");
         }
@@ -27,15 +28,16 @@ public class Obstacle extends Actor {
         img = new Texture(spritePath);
         sprite = new Sprite(img);
 
-        sprite.setSize(img.getWidth() * spriteScaleFactor * game.actors.Constants.WORLD_TO_BOX,
-                img.getHeight() * spriteScaleFactor * game.actors.Constants.WORLD_TO_BOX);
+        sprite.setSize(width * Constants.WORLD_TO_BOX, height * Constants.WORLD_TO_BOX);
         sprite.setOrigin(sprite.getWidth() * 0.5f, sprite.getHeight() * 0.5f);
-        sprite.setOriginBasedPosition(Gdx.graphics.getWidth() * game.actors.Constants.WORLD_TO_BOX * 0.5f,
-                Gdx.graphics.getHeight() * game.actors.Constants.WORLD_TO_BOX * 0.5f);
+        //sprite.setOriginBasedPosition(Gdx.graphics.getWidth() * game.actors.Constants.WORLD_TO_BOX * 0.5f,
+         //       Gdx.graphics.getHeight() * game.actors.Constants.WORLD_TO_BOX * 0.5f);
+
+        sprite.setOriginBasedPosition(position.x, position.y);
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.position.set(sprite.getX(), sprite.getY());
+        bodyDef.position.set(position);
         body = Box2DSingleton.getInstance().world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
