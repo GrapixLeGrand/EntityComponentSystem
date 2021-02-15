@@ -19,9 +19,9 @@ public class MainCharacter extends Actor {
     private Sprite sprite;
     private Texture img;
     private Body body;
-    private float spriteScaleFactor = 1.0f;
-    private float speed = 0.1f * Constants.ZOOM_FACTOR;
-    private float decreaseFactor = 0.5f * Constants.ZOOM_FACTOR;
+    private float characterSize = 1.2f;
+    private float speed = 0.1f;
+    private float decreaseFactor = 0.5f;
     private float maxSpeed = 10.0f;
 
     public MainCharacter(final String spritePath, final Vector2 position) {
@@ -33,8 +33,10 @@ public class MainCharacter extends Actor {
         img = new Texture(spritePath);
         sprite = new Sprite(img);
 
-        sprite.setSize(img.getWidth() * spriteScaleFactor * Constants.WORLD_TO_BOX,
-                img.getHeight() *  spriteScaleFactor * Constants.WORLD_TO_BOX);
+        float maxDim = Math.max(img.getWidth(), img.getHeight());
+        float minDim = Math.min(img.getWidth(), img.getHeight());
+        float imgRatio = minDim / maxDim;
+        sprite.setSize(1.0f * characterSize, 1.0f * imgRatio * characterSize);
         sprite.setOrigin(sprite.getWidth() * 0.5f, sprite.getHeight() * 0.5f);
         sprite.setOriginBasedPosition(position.x * game.actors.Constants.WORLD_TO_BOX * 0.5f,
                 position.y * game.actors.Constants.WORLD_TO_BOX * 0.5f);

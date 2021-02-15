@@ -6,7 +6,7 @@
  <tileset firstgid="1" source="floor/Floor.tsx"/>
  <tileset firstgid="2" source="water/Water.tsx"/>
  <tileset firstgid="7" source="brick/Brick.tsx"/>
- <layer id="1" name="Tile Layer 1" width="42" height="28" offsetx="2.95748" offsety="8.7215">
+ <layer id="1" name="Tile Layer 1" width="42" height="28">
   <data encoding="csv">
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,

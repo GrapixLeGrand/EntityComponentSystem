@@ -28,7 +28,8 @@ public class Obstacle extends Actor {
         img = new Texture(spritePath);
         sprite = new Sprite(img);
 
-        sprite.setSize(width * Constants.WORLD_TO_BOX, height * Constants.WORLD_TO_BOX);
+        //sprite.setSize(Constants.SPRITE_SCALE_UNIT * width * Constants.WORLD_TO_BOX, Constants.SPRITE_SCALE_UNIT * height * Constants.WORLD_TO_BOX);
+        sprite.setSize(width, height);
         sprite.setOrigin(sprite.getWidth() * 0.5f, sprite.getHeight() * 0.5f);
         //sprite.setOriginBasedPosition(Gdx.graphics.getWidth() * game.actors.Constants.WORLD_TO_BOX * 0.5f,
          //       Gdx.graphics.getHeight() * game.actors.Constants.WORLD_TO_BOX * 0.5f);
