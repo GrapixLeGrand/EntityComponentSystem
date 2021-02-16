@@ -16,11 +16,11 @@ public class SpriteRenderer extends Component {
 
     public SpriteRenderer() {}
     public SpriteRenderer(String imagePath, Vector2 position) {
-        new SpriteRenderer(imagePath, position.x, position.y, 1.0f, 1.0f);
+        this(imagePath, position.x, position.y, 1.0f, 1.0f);
     }
 
     public SpriteRenderer(String imagePath, Vector2 position, float width, float height) {
-        new SpriteRenderer(imagePath, position.x, position.y, width, height);
+        this(imagePath, position.x, position.y, width, height);
     }
 
     public SpriteRenderer(String imagePath, float x, float y, float width, float height) {
@@ -29,10 +29,15 @@ public class SpriteRenderer extends Component {
         sprite.setSize(width, height);
         sprite.setOrigin(sprite.getWidth() * 0.5f, sprite.getHeight() * 0.5f);
         sprite.setOriginBasedPosition(game.actors.Constants.WORLD_TO_BOX * 0.5f * x, game.actors.Constants.WORLD_TO_BOX * 0.5f * y);
-        transform = getContainingEntity().getComponent(Transform.class);
+        transform = null;//getContainingEntity().getComponent(Transform.class);
     }
 
     public void render(Batch batch) {
+
+        if (transform == null) {
+            transform = getContainingEntity().getComponent(Transform.class);
+        }
+
         sprite.setRotation(transform.getRotation() * 180f / (float) Math.PI);
         sprite.setOriginBasedPosition(transform.getX(), transform.getY());
         sprite.draw(batch);

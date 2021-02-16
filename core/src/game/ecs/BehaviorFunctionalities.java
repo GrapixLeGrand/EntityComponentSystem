@@ -1,6 +1,6 @@
 package game.ecs;
 
-public interface Behavior {
+public interface BehaviorFunctionalities {
     void start();
     void update(float dt);
 }

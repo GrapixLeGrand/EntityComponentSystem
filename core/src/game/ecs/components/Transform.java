@@ -10,7 +10,7 @@ public class Transform extends Component {
     private float rotation = 0.0f; //radians
 
     public Transform(Vector2 position) {
-        new Transform(position.x, position.y);
+        this(position.x, position.y);
     }
 
     public Transform(float x, float y) {
@@ -19,7 +19,7 @@ public class Transform extends Component {
     }
 
     public Transform(Vector2 position, float rotation) {
-        new Transform(position.x, position.y, rotation);
+        this(position.x, position.y, rotation);
     }
 
     public Transform(float x, float y, float rotation) {

@@ -18,6 +18,8 @@ import game.actors.Actor;
 import game.actors.Constants;
 import game.actors.MainCharacter;
 import game.actors.Obstacle;
+import game.ecs.EntitiesManagerSingleton;
+import game.ecs.EntityFactory;
 import game.maps.PhysicalTilesContainer;
 import game.system.Box2DSingleton;
 import game.system.GameInstanceSingleton;
@@ -25,6 +27,7 @@ import game.system.cameras.FollowingOrthographicCamera;
 
 public class GdxGame extends ApplicationAdapter {
 
+	private EntitiesManagerSingleton entitiesManager = EntitiesManagerSingleton.getInstance();
 	private OrthographicCamera camera;
 	private GameInstanceSingleton gameInstance = GameInstanceSingleton.getInstance();
 	private ScreenViewport viewport;
@@ -60,6 +63,7 @@ public class GdxGame extends ApplicationAdapter {
 		gameInstance.setMainCamera(camera);
 		gameInstance.setMainCharacter(mainCharacter);
 
+		EntityFactory.createMainCharacter(mainCharacterPosition);
 	}
 
 	@Override
@@ -68,6 +72,7 @@ public class GdxGame extends ApplicationAdapter {
 		System.out.println(mainCharacter.getPosition());
 
 		camera.update();
+		entitiesManager.updateEntities();
 		actors.forEach(actor -> actor.update());
 
 		Box2DSingleton.getInstance().world.step(Gdx.graphics.getDeltaTime(), 6, 2);

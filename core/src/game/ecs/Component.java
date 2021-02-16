@@ -10,6 +10,7 @@ public abstract class Component {
 
     protected void setContainingEntity(Entity entity) {
         owner = entity;
+        ownerId = entity.getId();
     }
 
     public int getContainingEntityId() {

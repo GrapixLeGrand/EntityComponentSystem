@@ -20,6 +20,10 @@ public class Rigidbody extends Component {
         this.body = body;
     }
 
+    public Body getBody() {
+        return body;
+    }
+
     public static class RigidbodyBuilder {
 
         private Rigidbody instance;

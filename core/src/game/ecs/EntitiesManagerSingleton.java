@@ -1,20 +1,22 @@
 package game.ecs;
 
+import com.badlogic.gdx.Gdx;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityManagerSingleton {
+public class EntitiesManagerSingleton {
 
-    private static EntityManagerSingleton instance;
+    private static EntitiesManagerSingleton instance;
     private List<Entity> entities;
 
-    private EntityManagerSingleton() {
+    private EntitiesManagerSingleton() {
         entities = new ArrayList<>();
     }
 
-    public static EntityManagerSingleton getInstance() {
+    public static EntitiesManagerSingleton getInstance() {
         if (instance == null) {
-            instance = new EntityManagerSingleton();
+            instance = new EntitiesManagerSingleton();
         }
         return instance;
     }
@@ -40,6 +42,12 @@ public class EntityManagerSingleton {
             }
         }
         return null;
+    }
+
+    public void updateEntities() {
+        for (Entity entity : entities) {
+            entity.updateBehaviors(Gdx.graphics.getDeltaTime());
+        }
     }
 
 }
