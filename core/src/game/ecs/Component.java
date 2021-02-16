@@ -1,14 +1,23 @@
 package game.ecs;
 
 public abstract class Component {
-    private String tag = null;
+    private int ownerId;
+    private Entity owner;
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public Entity getContainingEntity() {
+        return owner;
     }
 
-    public String getTag() {
-        return tag;
+    protected void setContainingEntity(Entity entity) {
+        owner = entity;
+    }
+
+    public int getContainingEntityId() {
+        return ownerId;
+    }
+
+    protected void setContainingEntityId(int id) {
+        ownerId = id;
     }
 
 }

@@ -47,7 +47,6 @@ public class MainCharacter extends Actor {
         body = Box2DSingleton.getInstance().world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-
         shape.setAsBox(sprite.getWidth() * 0.5f, sprite.getHeight() * 0.5f);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
