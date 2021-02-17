@@ -11,6 +11,7 @@ import game.system.Box2DSingleton;
 
 public class Rigidbody extends Component {
     private Body body;
+    private Transform transform;
 
     public Rigidbody() {
         body = null;
@@ -69,7 +70,7 @@ public class Rigidbody extends Component {
         }
 
         public RigidbodyBuilder withBoxShape(float hx, float hy) {
-            shape.setAsBox(hx, hy);
+            shape.setAsBox(hx * 0.5f, hy * 0.5f);
             return this;
         }
 

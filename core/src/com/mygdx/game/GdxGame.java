@@ -45,7 +45,7 @@ public class GdxGame extends ApplicationAdapter {
 
 		mainCharacter =
 			new MainCharacter("characters/character.png", mainCharacterPosition);
-		camera = new FollowingOrthographicCamera(mainCharacter);
+		camera = new OrthographicCamera();//new FollowingOrthographicCamera(mainCharacter);
 		viewport = new ScreenViewport();
 		viewport.setUnitsPerPixel(Constants.WORLD_TO_BOX);
 		float screenRatio = Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() * 1.0f);
@@ -64,16 +64,17 @@ public class GdxGame extends ApplicationAdapter {
 		gameInstance.setMainCharacter(mainCharacter);
 
 		EntityFactory.createMainCharacter(mainCharacterPosition);
+		entitiesManager.startEntitiesBehaviors();
 	}
 
 	@Override
 	public void render() {
 
-		System.out.println(mainCharacter.getPosition());
+		//System.out.println(mainCharacter.getPosition());
 
 		camera.update();
-		entitiesManager.updateEntities();
-		actors.forEach(actor -> actor.update());
+		entitiesManager.updateEntitiesBehaviors();
+		//actors.forEach(actor -> actor.update());
 
 		Box2DSingleton.getInstance().world.step(Gdx.graphics.getDeltaTime(), 6, 2);
 
@@ -86,7 +87,8 @@ public class GdxGame extends ApplicationAdapter {
 		batch.begin();
 		tiledMapRenderer.setView(camera);
 		tiledMapRenderer.render();
-		actors.forEach(actor -> actor.render(batch));
+		//actors.forEach(actor -> actor.render(batch));
+		entitiesManager.renderEntities(batch);
 		batch.end();
 
 	}

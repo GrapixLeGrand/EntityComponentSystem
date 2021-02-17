@@ -1,10 +1,12 @@
 package game.ecs;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Batch;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import game.ecs.components.SpriteRenderer;
 import game.ecs.entity.Entity;
 
 public class EntitiesManagerSingleton {
@@ -46,9 +48,24 @@ public class EntitiesManagerSingleton {
         return null;
     }
 
-    public void updateEntities() {
+    public void startEntitiesBehaviors() {
+        for (Entity entity : entities) {
+            entity.startBehaviors();
+        }
+    }
+
+    public void updateEntitiesBehaviors() {
         for (Entity entity : entities) {
             entity.updateBehaviors(Gdx.graphics.getDeltaTime());
+        }
+    }
+
+    public void renderEntities(Batch batch) {
+        for (Entity entity : entities) {
+            SpriteRenderer renderer = entity.getComponent(SpriteRenderer.class);
+            if (renderer != null) {
+                renderer.render(batch);
+            }
         }
     }
 

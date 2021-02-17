@@ -12,6 +12,7 @@ public class SpriteRenderer extends Component {
     private Texture texture = new Texture("map/black.png");
     private Sprite sprite = new Sprite(texture);
     private Transform transform = new Transform();
+    private boolean isEnabled = true;
 
     public SpriteRenderer() {
         sprite.setSize(1.0f, 1.0f);
@@ -41,14 +42,23 @@ public class SpriteRenderer extends Component {
     }
 
     public void render(Batch batch) {
+        if (isEnabled) {
+            if (transform == null) {
+                transform = getContainingEntity().getComponent(Transform.class);
+            }
 
-        if (transform == null) {
-            transform = getContainingEntity().getComponent(Transform.class);
+            sprite.setRotation(transform.getRotation());
+            sprite.setOriginBasedPosition(transform.getX(), transform.getY()); //same referential as box2d
+            sprite.draw(batch);
         }
+    }
 
-        sprite.setRotation(transform.getRotation() * 180f / (float) Math.PI);
-        sprite.setOriginBasedPosition(transform.getX(), transform.getY());
-        sprite.draw(batch);
+    public void enable() {
+        isEnabled = true;
+    }
+
+    public void disable() {
+        isEnabled = false;
     }
 
     public Sprite getSprite() {

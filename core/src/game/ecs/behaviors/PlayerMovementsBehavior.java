@@ -5,11 +5,14 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import game.ecs.components.Behavior;
 import game.ecs.components.Rigidbody;
+import game.ecs.components.Transform;
 import game.system.inputs.InputProvider;
 
 public class PlayerMovementsBehavior extends Behavior {
 
     private Rigidbody rigidbody;
+
+    private Transform entityTransform;
 
     public float speed = 0.1f;
     public float decreaseFactor = 0.5f;
@@ -17,6 +20,7 @@ public class PlayerMovementsBehavior extends Behavior {
 
     @Override
     public void start() {
+        entityTransform = getContainingEntity().getComponent(Transform.class);
         rigidbody = getContainingEntity().getComponent(Rigidbody.class);
     }
 
@@ -71,6 +75,8 @@ public class PlayerMovementsBehavior extends Behavior {
                 body.applyLinearImpulse(new Vector2(- speed * decreaseFactor, 0.0f), Vector2.Zero,true);
             }
         }
+
+        entityTransform.setPosition(body.getPosition());
 
     }
 

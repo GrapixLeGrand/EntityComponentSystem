@@ -10,6 +10,6 @@ public class BehaviorTest extends Behavior {
 
     @Override
     public void update(float dt) {
-        System.out.println("Hello I'm being updated !");
+        //System.out.println("Hello I'm being updated !");
     }
 }

@@ -18,9 +18,10 @@ public class Entity {
         id = counter++;
     }
 
-    //private because managed internally
-    private void startBehaviors() {
-        behaviors.forEach(b -> b.start());
+    public void startBehaviors() {
+        for (Behavior c : behaviors) {
+            c.start();
+        }
     }
 
     public void updateBehaviors(float dt) {
@@ -49,7 +50,8 @@ public class Entity {
         components.add(component);
         component.setContainingEntity(this);
         if (Behavior.class.isInstance(component)) {
-            behaviors.add((Behavior) component);
+            Behavior behavior = (Behavior)component;
+            behaviors.add(behavior);
         }
     }
 

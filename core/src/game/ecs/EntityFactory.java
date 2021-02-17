@@ -3,6 +3,8 @@ package game.ecs;
 import com.badlogic.gdx.math.Vector2;
 
 import game.ecs.behaviors.BehaviorTest;
+import game.ecs.behaviors.CameraFollowPlayer;
+import game.ecs.behaviors.PlayerFaceMouse;
 import game.ecs.behaviors.PlayerMovementsBehavior;
 import game.ecs.components.Rigidbody;
 import game.ecs.components.SpriteRenderer;
@@ -17,29 +19,28 @@ public class EntityFactory {
 
         float characterSize = 1.2f;
 
-        Transform t = new Transform(position, 0);
+        Transform transform = new Transform(position, 0);
 
         SpriteRenderer.SpriteRendererBuilder rendererBuilder = new SpriteRenderer.SpriteRendererBuilder();
         rendererBuilder.withSprite("characters/character.png");
-        rendererBuilder.withTextureDims();
         rendererBuilder.withUniformScale(characterSize);
         rendererBuilder.withCenteredOrigin();
+        rendererBuilder.withTransform(transform);
         SpriteRenderer renderer = rendererBuilder.build();
-
 
         Rigidbody.RigidbodyBuilder rb = new Rigidbody.RigidbodyBuilder();
         rb.withDynamicBody();
         rb.withPosition(position);
-        rb.withBoxShape(renderer.getTexture().getWidth(), renderer.getTexture().getHeight());
+        rb.withBoxShape(renderer.getSprite().getWidth(), renderer.getSprite().getHeight());
         Rigidbody rigidbody = rb.build();
 
-        BehaviorTest bt = new BehaviorTest();
-        PlayerMovementsBehavior pmb = new PlayerMovementsBehavior();
-
+        entity.attachComponent(transform);
         entity.attachComponent(renderer);
         entity.attachComponent(rigidbody);
-        entity.attachComponent(bt);
-        entity.attachComponent(pmb);
+        entity.attachComponent(new BehaviorTest());
+        entity.attachComponent(new PlayerMovementsBehavior());
+        entity.attachComponent(new CameraFollowPlayer());
+        entity.attachComponent(new PlayerFaceMouse());
         EntitiesManagerSingleton.getInstance().addEntity(entity);
 
         return entity;
