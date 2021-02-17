@@ -9,6 +9,10 @@ public class Transform extends Component {
     private final Vector2 position = Vector2.Zero;
     private float rotation = 0.0f; //radians
 
+    public Transform() {
+        this(Vector2.Zero, 0.0f);
+    }
+
     public Transform(Vector2 position) {
         this(position.x, position.y);
     }

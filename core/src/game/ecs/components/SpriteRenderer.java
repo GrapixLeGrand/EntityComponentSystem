@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
 import game.ecs.Component;
+import game.ecs.Entity;
 
 public class SpriteRenderer extends Component {
 
@@ -15,6 +16,12 @@ public class SpriteRenderer extends Component {
     private Transform transform; // reference to the entity transform component
 
     public SpriteRenderer() {}
+
+    public SpriteRenderer(String imagePath, Transform transform, float width, float height) {
+        this(imagePath, 0.0f, 0.0f, width, height);
+        this.transform = transform;
+    }
+
     public SpriteRenderer(String imagePath, Vector2 position) {
         this(imagePath, position.x, position.y, 1.0f, 1.0f);
     }
@@ -49,6 +56,16 @@ public class SpriteRenderer extends Component {
 
     public Texture getTexture() {
         return texture;
+    }
+
+    public static class SpriteRendererBuilder implements ComponentBuilder<SpriteRenderer> {
+
+
+
+        @Override
+        public SpriteRenderer build(Entity entity) {
+            return null;
+        }
     }
 
 }

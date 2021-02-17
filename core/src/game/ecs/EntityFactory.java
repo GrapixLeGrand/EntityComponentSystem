@@ -12,6 +12,8 @@ public class EntityFactory {
 
     public static Entity createMainCharacter(Vector2 position) {
 
+        Entity entity = new Entity();
+
         float characterSize = 1.2f;
 
         Transform t = new Transform(position, 0);
@@ -35,6 +37,7 @@ public class EntityFactory {
         BehaviorTest bt = new BehaviorTest();
         PlayerMovementsBehavior pmb = new PlayerMovementsBehavior();
 
+        /*
         Entity.EntityBuilder eb = new Entity.EntityBuilder();
         eb.withComponent(t);
         eb.withComponent(sr);
@@ -42,9 +45,9 @@ public class EntityFactory {
         eb.withComponent(bt);
         eb.withComponent(pmb);
         Entity e = eb.build();
-
-        EntitiesManagerSingleton.getInstance().addEntity(e);
-        return e;
+        */
+        EntitiesManagerSingleton.getInstance().addEntity(entity);
+        return entity;
     }
 
 

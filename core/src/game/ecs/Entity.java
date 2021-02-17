@@ -12,7 +12,7 @@ public class Entity {
     private List<Component> components;
     private List<Behavior> behaviors;
 
-    private Entity() {
+    public Entity() {
         components = new ArrayList<>();
         behaviors = new ArrayList<>();
         id = counter++;

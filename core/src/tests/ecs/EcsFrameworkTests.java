@@ -12,6 +12,7 @@ import game.ecs.EntityFactory;
 import game.ecs.components.Rigidbody;
 import game.ecs.components.SpriteRenderer;
 import game.ecs.components.Transform;
+import game.ecs.pool.ComponentListPool;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,6 +28,8 @@ public class EcsFrameworkTests {
 
     @Test
     public void test() {
+        ComponentListPool<Transform> pool = new ComponentListPool<>(Transform.class);
+
         /*
         Entity entity = EntityFactory.createMainCharacter(Vector2.Zero);
         //assertEquals(true, entity.getComponent(Rigidbody.class) != null);
