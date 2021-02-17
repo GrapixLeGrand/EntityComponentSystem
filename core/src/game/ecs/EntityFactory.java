@@ -7,6 +7,7 @@ import game.ecs.behaviors.PlayerMovementsBehavior;
 import game.ecs.components.Rigidbody;
 import game.ecs.components.SpriteRenderer;
 import game.ecs.components.Transform;
+import game.ecs.entity.Entity;
 
 public class EntityFactory {
 
@@ -18,35 +19,29 @@ public class EntityFactory {
 
         Transform t = new Transform(position, 0);
 
-
-        SpriteRenderer sr =
-                new SpriteRenderer("characters/character.png", position);
-
-        float maxDim = Math.max(sr.getTexture().getWidth(), sr.getTexture().getHeight());
-        float minDim = Math.min(sr.getTexture().getWidth(), sr.getTexture().getHeight());
-        float imgRatio = minDim / maxDim;
-        sr.getSprite().setSize(1.0f * characterSize, 1.0f * imgRatio * characterSize);
+        SpriteRenderer.SpriteRendererBuilder rendererBuilder = new SpriteRenderer.SpriteRendererBuilder();
+        rendererBuilder.withSprite("characters/character.png");
+        rendererBuilder.withTextureDims();
+        rendererBuilder.withUniformScale(characterSize);
+        rendererBuilder.withCenteredOrigin();
+        SpriteRenderer renderer = rendererBuilder.build();
 
 
         Rigidbody.RigidbodyBuilder rb = new Rigidbody.RigidbodyBuilder();
         rb.withDynamicBody();
         rb.withPosition(position);
-        rb.withBoxShape(sr.getTexture().getWidth(), sr.getTexture().getHeight());
-        Rigidbody r = rb.build();
+        rb.withBoxShape(renderer.getTexture().getWidth(), renderer.getTexture().getHeight());
+        Rigidbody rigidbody = rb.build();
 
         BehaviorTest bt = new BehaviorTest();
         PlayerMovementsBehavior pmb = new PlayerMovementsBehavior();
 
-        /*
-        Entity.EntityBuilder eb = new Entity.EntityBuilder();
-        eb.withComponent(t);
-        eb.withComponent(sr);
-        eb.withComponent(r);
-        eb.withComponent(bt);
-        eb.withComponent(pmb);
-        Entity e = eb.build();
-        */
+        entity.attachComponent(renderer);
+        entity.attachComponent(rigidbody);
+        entity.attachComponent(bt);
+        entity.attachComponent(pmb);
         EntitiesManagerSingleton.getInstance().addEntity(entity);
+
         return entity;
     }
 

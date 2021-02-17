@@ -2,7 +2,7 @@ package game.ecs.components;
 
 import com.badlogic.gdx.math.Vector2;
 
-import game.ecs.Component;
+import game.ecs.entity.Component;
 
 public class Transform extends Component {
 

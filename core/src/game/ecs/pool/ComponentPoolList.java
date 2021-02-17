@@ -4,12 +4,14 @@ package game.ecs.pool;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComponentListPool<T extends game.ecs.Component> implements ComponentPool<T> {
+import game.ecs.entity.Component;
+
+public class ComponentPoolList<T extends Component> implements ComponentPool<T> {
 
     private List<T> pool;
     private int initialSize = 100;
     private int counter = 0;
-    public ComponentListPool(Class<T> targetComponent) {
+    public ComponentPoolList(Class<T> targetComponent) {
         pool = new ArrayList<>(initialSize);
         try {
             for (int i = 0; i < initialSize; i++) {

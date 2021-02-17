@@ -5,6 +5,8 @@ import com.badlogic.gdx.Gdx;
 import java.util.ArrayList;
 import java.util.List;
 
+import game.ecs.entity.Entity;
+
 public class EntitiesManagerSingleton {
 
     private static EntitiesManagerSingleton instance;

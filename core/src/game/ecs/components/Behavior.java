@@ -1,6 +1,6 @@
 package game.ecs.components;
 
-import game.ecs.BehaviorFunctionalities;
-import game.ecs.Component;
+import game.ecs.BehaviorFunctionality;
+import game.ecs.entity.Component;
 
-public abstract class Behavior extends Component implements BehaviorFunctionalities {}
+public abstract class Behavior extends Component implements BehaviorFunctionality {}

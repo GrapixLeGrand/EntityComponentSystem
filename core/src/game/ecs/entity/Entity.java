@@ -1,4 +1,4 @@
-package game.ecs;
+package game.ecs.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,12 +54,25 @@ public class Entity {
     }
 
     public void detachComponent(Component component) {
-        //dispose ?
+
+        Component toBeRemoved = null;
         for (Component c : components) {
             if (component == c) {
+                toBeRemoved = c;
                 components.remove(c);
             }
         }
+
+        for (Behavior c : behaviors) {
+            if (component == c) {
+                behaviors.remove(c);
+            }
+        }
+
+        if (toBeRemoved != null) {
+            toBeRemoved.setContainingEntity(null);
+        }
+
     }
 
     public <T extends Component>  T getComponent(Class<? extends Component> target) {
@@ -71,6 +84,7 @@ public class Entity {
         return null;
     }
 
+    /*
     public static class EntityBuilder {
         private Entity entity;
         private List<Component> components;
@@ -92,5 +106,6 @@ public class Entity {
         }
 
     }
+     */
 
 }

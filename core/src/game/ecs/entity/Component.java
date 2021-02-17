@@ -1,6 +1,9 @@
-package game.ecs;
+package game.ecs.entity;
+
+import game.ecs.entity.Entity;
 
 public abstract class Component {
+
     private int ownerId;
     private Entity owner;
 
@@ -13,12 +16,5 @@ public abstract class Component {
         ownerId = entity.getId();
     }
 
-    public int getContainingEntityId() {
-        return ownerId;
-    }
-
-    protected void setContainingEntityId(int id) {
-        ownerId = id;
-    }
 
 }

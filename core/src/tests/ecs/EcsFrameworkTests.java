@@ -1,18 +1,11 @@
 package tests.ecs;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.GdxGame;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import game.ecs.Entity;
-import game.ecs.EntityFactory;
-import game.ecs.components.Rigidbody;
-import game.ecs.components.SpriteRenderer;
 import game.ecs.components.Transform;
-import game.ecs.pool.ComponentListPool;
+import game.ecs.pool.ComponentPoolList;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,7 +21,7 @@ public class EcsFrameworkTests {
 
     @Test
     public void test() {
-        ComponentListPool<Transform> pool = new ComponentListPool<>(Transform.class);
+        ComponentPoolList<Transform> pool = new ComponentPoolList<>(Transform.class);
 
         /*
         Entity entity = EntityFactory.createMainCharacter(Vector2.Zero);
