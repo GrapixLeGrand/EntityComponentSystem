@@ -12,11 +12,12 @@ import game.ecs.components.SpriteRenderer;
 import game.ecs.components.Transform;
 import game.ecs.entity.Entity;
 
+
 public class EntityFactory {
 
     public static Entity createMainCharacter(Vector2 position) {
 
-        Entity entity = new Entity();
+        Entity entity = EntitiesManagerSingleton.getInstance().getEntityInstance();
 
         float characterSize = 1.2f;
 
@@ -44,7 +45,6 @@ public class EntityFactory {
         entity.attachComponent(new PlayerMovementsBehavior());
         entity.attachComponent(new CameraFollowPlayer());
         entity.attachComponent(new PlayerFaceMouse());
-        EntitiesManagerSingleton.getInstance().getEntityInstance();
 
         return entity;
     }

@@ -5,11 +5,8 @@ import com.badlogic.gdx.ApplicationAdapter;
 import org.junit.Test;
 
 import game.ecs.behaviors.CameraFollowPlayer;
-import game.ecs.components.Behavior;
 import game.ecs.factories.ComponentFactorySingleton;
-import game.ecs.components.Transform;
 import game.ecs.entity.Entity;
-import game.ecs.pool.ComponentPoolList;
 import game.ecs.pool.ObjectPool;
 import game.ecs.pool.ObjectPoolList;
 

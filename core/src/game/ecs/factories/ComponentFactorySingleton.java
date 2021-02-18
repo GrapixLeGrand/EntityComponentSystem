@@ -3,8 +3,6 @@ package game.ecs.factories;
 import java.util.HashMap;
 
 import game.ecs.entity.Component;
-import game.ecs.pool.ComponentPool;
-import game.ecs.pool.ComponentPoolList;
 import game.ecs.pool.ObjectPool;
 import game.ecs.pool.ObjectPoolList;
 
