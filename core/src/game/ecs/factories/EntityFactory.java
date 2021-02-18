@@ -1,7 +1,6 @@
 package game.ecs.factories;
 
 import com.badlogic.gdx.math.Vector2;
-
 import game.ecs.EntitiesManagerSingleton;
 import game.ecs.behaviors.BehaviorTest;
 import game.ecs.behaviors.CameraFollowPlayer;
