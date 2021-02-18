@@ -55,7 +55,7 @@ public class GdxGame extends ApplicationAdapter {
 		actors.add(mainCharacter);
 		actors.add(new Obstacle("map/black.png", Vector2.Zero, 1.0f, 1.0f));
 
-		tiledMap = new TmxMapLoader().load("map/simpleLevel.tmx");
+		tiledMap = new TmxMapLoader().load("map/simplelevel.xml");
 		PhysicalTilesContainer physicalTilesContainer = new PhysicalTilesContainer(tiledMap);
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, Constants.WORLD_TO_BOX);
 

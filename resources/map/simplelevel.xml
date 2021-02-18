@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="42" height="28" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
  <editorsettings>
-  <export target="simpleLevel.tmx" format="tmx"/>
+  <export target="simplelevel.xml" format="xml"/>
  </editorsettings>
  <tileset firstgid="1" source="floor/Floor.tsx"/>
  <tileset firstgid="2" source="water/Water.tsx"/>
