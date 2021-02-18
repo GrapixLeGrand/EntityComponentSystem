@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
+import game.ecs.factories.ComponentFactorySingleton;
 import game.ecs.entity.Component;
 
 public class SpriteRenderer extends Component {
@@ -138,7 +139,7 @@ public class SpriteRenderer extends Component {
 
         @Override
         public SpriteRenderer build() {
-            instance = new SpriteRenderer();
+            instance = ComponentFactorySingleton.getInstance().getInstance(SpriteRenderer.class); //new SpriteRenderer();
             instance.setSprite(sprite);
             instance.setTexture(texture);
             instance.setTransform(transform);

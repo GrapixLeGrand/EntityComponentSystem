@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
+import game.ecs.factories.ComponentFactorySingleton;
 import game.ecs.entity.Component;
 import game.system.Box2DSingleton;
 
@@ -77,7 +78,7 @@ public class Rigidbody extends Component {
         @Override
         public Rigidbody build() {
             Body body = Box2DSingleton.getInstance().world.createBody(bodyDef);
-            instance = new Rigidbody();
+            instance = ComponentFactorySingleton.getInstance().getInstance(Rigidbody.class); //new Rigidbody();
             instance.setBody(body);
             instance.body.createFixture(fixtureDef);
             shape.dispose();

@@ -1,7 +1,8 @@
-package game.ecs;
+package game.ecs.factories;
 
 import com.badlogic.gdx.math.Vector2;
 
+import game.ecs.EntitiesManagerSingleton;
 import game.ecs.behaviors.BehaviorTest;
 import game.ecs.behaviors.CameraFollowPlayer;
 import game.ecs.behaviors.PlayerFaceMouse;
@@ -19,7 +20,9 @@ public class EntityFactory {
 
         float characterSize = 1.2f;
 
-        Transform transform = new Transform(position, 0);
+        Transform.TransformBuilder tb = new Transform.TransformBuilder();
+        tb.withPosition(position);
+        Transform transform = tb.build();
 
         SpriteRenderer.SpriteRendererBuilder rendererBuilder = new SpriteRenderer.SpriteRendererBuilder();
         rendererBuilder.withSprite("characters/character.png");
@@ -41,7 +44,7 @@ public class EntityFactory {
         entity.attachComponent(new PlayerMovementsBehavior());
         entity.attachComponent(new CameraFollowPlayer());
         entity.attachComponent(new PlayerFaceMouse());
-        EntitiesManagerSingleton.getInstance().addEntity(entity);
+        EntitiesManagerSingleton.getInstance().getEntityInstance();
 
         return entity;
     }

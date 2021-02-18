@@ -2,6 +2,7 @@ package game.ecs.components;
 
 import com.badlogic.gdx.math.Vector2;
 
+import game.ecs.factories.ComponentFactorySingleton;
 import game.ecs.entity.Component;
 
 public class Transform extends Component {
@@ -57,5 +58,29 @@ public class Transform extends Component {
         this.position.y = position.y;
     }
 
+    public static class TransformBuilder implements ComponentBuilder<Transform> {
+
+        private Transform instance = null;
+        private Vector2 position = Vector2.Zero;
+        private float orientation = 0.0f;
+
+        public TransformBuilder withPosition(final Vector2 position) {
+            this.position.set(position);
+            return this;
+        }
+
+        public TransformBuilder withOrientation(float orientation) {
+            this.orientation = orientation;
+            return this;
+        }
+
+        @Override
+        public Transform build() {
+            instance = ComponentFactorySingleton.getInstance().getInstance(Transform.class);
+            instance.setPosition(position);
+            instance.setRotation(orientation);
+            return instance;
+        }
+    }
 
 }

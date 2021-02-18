@@ -6,6 +6,7 @@ import java.util.List;
 
 import game.ecs.entity.Component;
 
+@Deprecated
 public class ComponentPoolList<T extends Component> implements ComponentPool<T> {
 
     private List<T> pool;
@@ -24,19 +25,13 @@ public class ComponentPoolList<T extends Component> implements ComponentPool<T> 
     }
 
     @Override
-    public T query(int index) {
-        return pool.get(index);
-    }
-
-    @Override
-    public int register(T element) {
+    public T getInstance(Class<? extends Component> target) {
         if (counter == pool.size() - 1) {
             throw new IllegalArgumentException("cannot add an element to a full pool");
         }
-        //pool.set(counter, element); overwrite here...
-        int index = counter;
+        T inst = pool.get(counter);
         counter++;
-        return index;
+        return inst;
     }
 
 }

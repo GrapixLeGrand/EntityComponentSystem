@@ -4,8 +4,14 @@ import com.badlogic.gdx.ApplicationAdapter;
 
 import org.junit.Test;
 
+import game.ecs.behaviors.CameraFollowPlayer;
+import game.ecs.components.Behavior;
+import game.ecs.factories.ComponentFactorySingleton;
 import game.ecs.components.Transform;
+import game.ecs.entity.Entity;
 import game.ecs.pool.ComponentPoolList;
+import game.ecs.pool.ObjectPool;
+import game.ecs.pool.ObjectPoolList;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,15 +27,24 @@ public class EcsFrameworkTests {
 
     @Test
     public void test() {
-        ComponentPoolList<Transform> pool = new ComponentPoolList<>(Transform.class);
-
-        /*
-        Entity entity = EntityFactory.createMainCharacter(Vector2.Zero);
-        //assertEquals(true, entity.getComponent(Rigidbody.class) != null);
-        assertEquals(true, entity.getComponent(Transform.class) != null);
-        //assertEquals(true, entity.getComponent(SpriteRenderer.class) != null);
-        entity.updateBehaviors(0.0f);
-        */
-
+        ObjectPool<CameraFollowPlayer> b = new ObjectPoolList<>(CameraFollowPlayer.class);
     }
+
+
+    @Test
+    public void ObjectPoolTest() {
+        ComponentFactorySingleton factory = ComponentFactorySingleton.getInstance();
+        Entity e = new Entity();
+        TestComponent1 c1 = factory.getInstance(TestComponent1.class);
+        e.attachComponent(c1);
+    }
+
+    @Test
+    public void ComponentFactoryTest() {
+        ComponentFactorySingleton factory = ComponentFactorySingleton.getInstance();
+        Entity e = new Entity();
+        TestComponent1 c1 = factory.getInstance(TestComponent1.class);
+        e.attachComponent(c1);
+    }
+
 }

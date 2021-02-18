@@ -1,6 +1,10 @@
 package game.ecs.pool;
 
-public interface ComponentPool<T> {
-    T query(int id);
-    int register(T element);
+import com.badlogic.gdx.graphics.Camera;
+
+import game.ecs.entity.Component;
+
+@Deprecated
+public interface ComponentPool<T extends Component> {
+    T getInstance(Class<? extends Component> target);
 }

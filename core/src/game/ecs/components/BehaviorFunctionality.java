@@ -1,4 +1,4 @@
-package game.ecs;
+package game.ecs.components;
 
 public interface BehaviorFunctionality {
     void start();

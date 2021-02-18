@@ -19,11 +19,10 @@ import game.actors.Constants;
 import game.actors.MainCharacter;
 import game.actors.Obstacle;
 import game.ecs.EntitiesManagerSingleton;
-import game.ecs.EntityFactory;
+import game.ecs.factories.EntityFactory;
 import game.maps.PhysicalTilesContainer;
 import game.system.Box2DSingleton;
 import game.system.GameInstanceSingleton;
-import game.system.cameras.FollowingOrthographicCamera;
 
 public class GdxGame extends ApplicationAdapter {
 
