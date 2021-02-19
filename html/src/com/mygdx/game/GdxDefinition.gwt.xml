@@ -8,6 +8,7 @@
 	<inherits name='com.badlogic.gdx.ai' />
 
 	<inherits name='GdxGame' />
+
 	<entry-point class='com.mygdx.game.client.HtmlLauncher' />
 	<set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>
 	<set-configuration-property name="gdx.assetpath" value="../android/assets" />

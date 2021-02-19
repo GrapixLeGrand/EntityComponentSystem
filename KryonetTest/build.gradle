@@ -1,0 +1,9 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "com.esotericsoftware:kryonet:2.22.0-RC1"
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
