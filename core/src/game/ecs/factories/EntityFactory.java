@@ -14,7 +14,19 @@ import game.ecs.entity.Entity;
 
 public class EntityFactory {
 
-    public static Entity createMainCharacter(Vector2 position) {
+    private static EntityFactory instance = null;
+    private EntityFactory() {
+
+    }
+
+    public static EntityFactory getInstance() {
+        if (instance == null) {
+            instance = new EntityFactory();
+        }
+        return instance;
+    }
+
+    public Entity createMainCharacter(Vector2 position) {
 
         Entity entity = EntitiesManagerSingleton.getInstance().getEntityInstance();
 
@@ -44,6 +56,35 @@ public class EntityFactory {
         entity.attachComponent(new PlayerMovementsBehavior());
         entity.attachComponent(new CameraFollowPlayer());
         entity.attachComponent(new PlayerFaceMouse());
+
+        return entity;
+    }
+
+    public Entity createWallTile(Vector2 position, float width, float height) {
+
+        Entity entity = EntitiesManagerSingleton.getInstance().getEntityInstance();
+
+        Transform.TransformBuilder tb = new Transform.TransformBuilder();
+        tb.withPosition(position);
+        Transform transform = tb.build();
+
+        SpriteRenderer.SpriteRendererBuilder rendererBuilder = new SpriteRenderer.SpriteRendererBuilder();
+        rendererBuilder.withSprite("map/black.png");
+        rendererBuilder.withDims(width, height);
+        rendererBuilder.withCenteredOrigin();
+        rendererBuilder.withTransform(transform);
+        //rendererBuilder.asDisabled();
+        SpriteRenderer renderer = rendererBuilder.build();
+
+        Rigidbody.RigidbodyBuilder rb = new Rigidbody.RigidbodyBuilder();
+        rb.withStaticBody();
+        rb.withPosition(position);
+        rb.withBoxShape(renderer.getSprite().getWidth(), renderer.getSprite().getHeight());
+        Rigidbody rigidbody = rb.build();
+
+        entity.attachComponent(transform);
+        entity.attachComponent(renderer);
+        entity.attachComponent(rigidbody);
 
         return entity;
     }

@@ -36,6 +36,7 @@ public class Obstacle extends Actor {
 
         sprite.setOriginBasedPosition(position.x, position.y);
 
+
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(position);
@@ -52,6 +53,7 @@ public class Obstacle extends Actor {
 
         Fixture fixture = body.createFixture(fixtureDef);
         shape.dispose();
+
     }
 
     @Override

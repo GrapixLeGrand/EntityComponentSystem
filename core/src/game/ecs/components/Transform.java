@@ -7,11 +7,11 @@ import game.ecs.entity.Component;
 
 public class Transform extends Component {
 
-    private final Vector2 position = Vector2.Zero;
+    private final Vector2 position = new Vector2(0, 0);
     private float rotation = 0.0f; //radians
 
     public Transform() {
-        this(Vector2.Zero, 0.0f);
+        this(new Vector2(0, 0), 0.0f);
     }
 
     public Transform(Vector2 position) {
@@ -61,11 +61,19 @@ public class Transform extends Component {
     public static class TransformBuilder implements ComponentBuilder<Transform> {
 
         private Transform instance = null;
-        private Vector2 position = Vector2.Zero;
+        private Vector2 position = null;
         private float orientation = 0.0f;
 
+        public TransformBuilder() {
+            position = new Vector2(0, 0);
+            position.x = 0;
+            position.y = 0;
+            orientation = 0.0f;
+        }
+
         public TransformBuilder withPosition(final Vector2 position) {
-            this.position.set(position);
+            this.position.x = position.x;
+            this.position.y = position.y;
             return this;
         }
 

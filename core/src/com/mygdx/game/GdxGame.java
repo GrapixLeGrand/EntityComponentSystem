@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ import game.ecs.factories.EntityFactory;
 import game.maps.PhysicalTilesContainer;
 import game.system.Box2DSingleton;
 import game.system.GameInstanceSingleton;
+import jdk.nashorn.internal.codegen.OptimisticTypesPersistence;
+
 
 public class GdxGame extends ApplicationAdapter {
 
@@ -35,15 +38,17 @@ public class GdxGame extends ApplicationAdapter {
 	final List<Actor> actors = new ArrayList<Actor>();
 	TiledMap tiledMap;
 	OrthogonalTiledMapRenderer tiledMapRenderer;
-	private Vector2 mainCharacterPosition = new Vector2(0.0f, 0.0f);
-	private MainCharacter mainCharacter;
+	private Vector2 mainCharacterPosition = new Vector2(5.0f, 5.0f);
+	//private MainCharacter mainCharacter;
 	private int maxHorizontalTiles = 12;
 
 	@Override
 	public void create() {
 
-		mainCharacter =
-			new MainCharacter("characters/character.png", mainCharacterPosition);
+		GdxNativesLoader.load();
+
+		//mainCharacter =
+		//	new MainCharacter("characters/character.png", mainCharacterPosition);
 		camera = new OrthographicCamera();//new FollowingOrthographicCamera(mainCharacter);
 		viewport = new ScreenViewport();
 		viewport.setUnitsPerPixel(Constants.WORLD_TO_BOX);
@@ -52,17 +57,17 @@ public class GdxGame extends ApplicationAdapter {
 		viewport.setCamera(camera);
 
 		batch = new SpriteBatch();
-		actors.add(mainCharacter);
-		actors.add(new Obstacle("map/black.png", Vector2.Zero, 1.0f, 1.0f));
+		//actors.add(mainCharacter);
+		//actors.add(new Obstacle("map/black.png", Vector2.Zero, 1.0f, 1.0f));
 
 		tiledMap = new TmxMapLoader().load("map/simplelevel.xml");
 		PhysicalTilesContainer physicalTilesContainer = new PhysicalTilesContainer(tiledMap);
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, Constants.WORLD_TO_BOX);
 
 		gameInstance.setMainCamera(camera);
-		gameInstance.setMainCharacter(mainCharacter);
+		//gameInstance.setMainCharacter(mainCharacter);
 
-		EntityFactory.createMainCharacter(mainCharacterPosition);
+		EntityFactory.getInstance().createMainCharacter(mainCharacterPosition);
 		entitiesManager.startEntitiesBehaviors();
 	}
 
@@ -94,7 +99,6 @@ public class GdxGame extends ApplicationAdapter {
 
 	@Override
 	public void dispose() {
-		actors.forEach(actor -> actor.dispose());
 		Box2DSingleton.getInstance().dispose();
 	}
 }

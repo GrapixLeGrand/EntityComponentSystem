@@ -35,9 +35,11 @@ public class Rigidbody extends Component {
         private Rigidbody instance;
         private BodyDef bodyDef = new BodyDef();
         private FixtureDef fixtureDef = new FixtureDef();
-        private PolygonShape shape = new PolygonShape();
+        private PolygonShape shape = null;
 
         public RigidbodyBuilder() {
+            Box2DSingleton inst = Box2DSingleton.getInstance(); // need to create the world by forcing and instance creation for the polygon
+            shape = new PolygonShape();
             instance = null;
             fixtureDef.shape = shape;
         }

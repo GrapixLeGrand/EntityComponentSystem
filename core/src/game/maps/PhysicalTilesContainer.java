@@ -20,6 +20,7 @@ import java.util.List;
 import game.actors.Actor;
 import game.actors.ActorFactory;
 import game.actors.Constants;
+import game.ecs.factories.EntityFactory;
 import game.system.Box2DSingleton;
 
 public class PhysicalTilesContainer {
@@ -47,31 +48,10 @@ public class PhysicalTilesContainer {
                 String tileSetName = idToSetName.get(currentTile.getId());
                 if (physicalTileSetsNames.contains(tileSetName)) {
 
-                    Body body = null;
                     Vector2 tilePosition = new Vector2(x + 0.5f, y + 0.5f);
                     Vector2 tileWorldPosition = tilePosition; //.scl(mapFactor * Constants.WORLD_TO_BOX);//.scl(Constants.WORLD_TO_BOX * mapFactor);
+                    EntityFactory.getInstance().createWallTile(tileWorldPosition, 1.0f, 1.0f);
 
-                    BodyDef bodyDef = new BodyDef();
-                    bodyDef.type = BodyDef.BodyType.StaticBody;
-                    bodyDef.position.set(tileWorldPosition);
-
-					body = Box2DSingleton.getInstance().world.createBody(bodyDef);
-
-					PolygonShape shape = new PolygonShape();
-
-					shape.setAsBox(0.5f, 0.5f);
-					FixtureDef fixtureDef = new FixtureDef();
-					fixtureDef.shape = shape;
-					fixtureDef.friction = 10.0f;
-					fixtureDef.density = 0f;
-					fixtureDef.restitution = -1.0f;
-
-					Fixture fixture = body.createFixture(fixtureDef);
-					shape.dispose();
-					staticBodies.add(body);
-                    //.add(layerRenderOffset)
-                    //Actor a = ActorFactory.createBlankObstacle(tileWorldPosition, 1.0f, 1.0f);
-                    //actors.add(a);
                 }
             }
         }

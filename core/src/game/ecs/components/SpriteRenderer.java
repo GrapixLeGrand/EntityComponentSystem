@@ -62,6 +62,10 @@ public class SpriteRenderer extends Component {
         isEnabled = false;
     }
 
+    public void setEnabled(boolean state) {
+        isEnabled = state;
+    }
+
     public Sprite getSprite() {
         return sprite;
     }
@@ -90,6 +94,7 @@ public class SpriteRenderer extends Component {
         private Transform transform = new Transform();
         private float width = 1.0f;
         private float height = 1.0f;
+        private boolean isEnabled = true;
 
         public SpriteRendererBuilder withCenteredOrigin() {
             sprite.setSize(width, height);
@@ -99,6 +104,16 @@ public class SpriteRenderer extends Component {
 
         public SpriteRendererBuilder withTextureDims() {
             return withDims(texture.getWidth(), texture.getHeight());
+        }
+
+        public SpriteRendererBuilder asEnabled() {
+            isEnabled = true;
+            return this;
+        }
+
+        public SpriteRendererBuilder asDisabled() {
+            isEnabled = false;
+            return this;
         }
 
         public SpriteRendererBuilder withDims(float width, float height) {
@@ -143,6 +158,7 @@ public class SpriteRenderer extends Component {
             instance.setSprite(sprite);
             instance.setTexture(texture);
             instance.setTransform(transform);
+            instance.setEnabled(isEnabled);
             return instance;
         }
     }
