@@ -1,6 +1,9 @@
 buildscript {
     
 
+    ext {
+        kotlin_version = '1.3.72'
+    }
     repositories {
         mavenLocal()
         mavenCentral()
@@ -13,7 +16,8 @@ buildscript {
         classpath 'org.gretty:gretty:3.0.2'
         classpath 'com.android.tools.build:gradle:4.0.1'
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.12'
-        
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
 
     }
 }
@@ -38,6 +42,21 @@ allprojects {
         google()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+    }
+}
+
+project(":desktopclient") {
+    apply plugin: "java-library"
+
+
+    dependencies {
+        implementation project(":core")
+        api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+        api "com.badlogicgames.gdx-controllers:gdx-controllers-desktop:$gdxControllersVersion"
+        api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+
     }
 }
 

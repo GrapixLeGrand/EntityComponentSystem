@@ -1,2 +1,4 @@
+include ':DesktopClient'
+include ':DesktopClientLauncher'
 include ':KryonetTest'
-include 'desktop', 'android', 'ios', 'html', 'core'
+include 'desktop', 'desktopclient', 'android', 'ios', 'html', 'core'
