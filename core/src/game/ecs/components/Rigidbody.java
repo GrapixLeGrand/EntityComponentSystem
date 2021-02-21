@@ -3,6 +3,7 @@ package game.ecs.components;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
@@ -13,6 +14,10 @@ import game.system.Box2DSingleton;
 public class Rigidbody extends Component {
     private Body body;
     private Transform transform;
+
+    private BodyDef bodyDef;
+    private FixtureDef fixtureDef;
+    private PolygonShape shape;
 
     public Rigidbody() {
         body = null;
@@ -30,15 +35,30 @@ public class Rigidbody extends Component {
         this.body = body;
     }
 
+    @Override
+    public Rigidbody duplicate() {
+        Rigidbody newInstance = ComponentFactorySingleton.getInstance().getInstance(Rigidbody.class);
+        Body body = Box2DSingleton.getInstance().world.createBody(bodyDef);
+        newInstance = ComponentFactorySingleton.getInstance().getInstance(Rigidbody.class); //new Rigidbody();
+        newInstance.setBody(body);
+        newInstance.bodyDef = bodyDef;
+        newInstance.shape = shape;
+        newInstance.fixtureDef = fixtureDef;
+        newInstance.body.createFixture(fixtureDef);
+        return newInstance;
+    }
+
     public static class RigidbodyBuilder implements ComponentBuilder<Rigidbody> {
 
         private Rigidbody instance;
-        private BodyDef bodyDef = new BodyDef();
-        private FixtureDef fixtureDef = new FixtureDef();
-        private PolygonShape shape = null;
+        private BodyDef bodyDef;
+        private FixtureDef fixtureDef;
+        private PolygonShape shape;
 
         public RigidbodyBuilder() {
             Box2DSingleton inst = Box2DSingleton.getInstance(); // need to create the world by forcing and instance creation for the polygon
+            bodyDef = new BodyDef();
+            fixtureDef = new FixtureDef();
             shape = new PolygonShape();
             instance = null;
             fixtureDef.shape = shape;
@@ -82,8 +102,11 @@ public class Rigidbody extends Component {
             Body body = Box2DSingleton.getInstance().world.createBody(bodyDef);
             instance = ComponentFactorySingleton.getInstance().getInstance(Rigidbody.class); //new Rigidbody();
             instance.setBody(body);
+            instance.bodyDef = bodyDef;
+            instance.shape = shape;
+            instance.fixtureDef = fixtureDef;
             instance.body.createFixture(fixtureDef);
-            shape.dispose();
+            //shape.dispose();
             return instance;
         }
 

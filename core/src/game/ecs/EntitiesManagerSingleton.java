@@ -44,7 +44,9 @@ public class EntitiesManagerSingleton {
 
         while (entityIterator.hasNext()) {
             Entity e = entityIterator.next();
-            e.startBehaviors();
+            if (e.isEnabled()) {
+                e.startBehaviors();
+            }
         }
     }
 
@@ -53,7 +55,9 @@ public class EntitiesManagerSingleton {
 
         while (entityIterator.hasNext()) {
             Entity e = entityIterator.next();
-            e.updateBehaviors(Gdx.graphics.getDeltaTime());
+            if (e.isEnabled()) {
+                e.updateBehaviors(Gdx.graphics.getDeltaTime());
+            }
         }
     }
 
@@ -64,7 +68,9 @@ public class EntitiesManagerSingleton {
 
         while (spriteRendererIterator.hasNext()) {
             SpriteRenderer spriteRenderer = spriteRendererIterator.next();
-            spriteRenderer.render(batch);
+            if (spriteRenderer.getContainingEntity().isEnabled()) {
+                spriteRenderer.render(batch);
+            }
         }
 
     }

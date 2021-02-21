@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import game.ecs.components.Behavior;
 import game.ecs.components.Rigidbody;
 import game.ecs.components.Transform;
+import game.ecs.entity.Component;
 import game.system.inputs.InputProvider;
 
 public class PlayerMovementsBehavior extends Behavior {
@@ -80,4 +81,8 @@ public class PlayerMovementsBehavior extends Behavior {
 
     }
 
+    @Override
+    public Component duplicate() {
+        return new PlayerMovementsBehavior();
+    }
 }

@@ -13,6 +13,7 @@ public class SpriteRenderer extends Component {
     private Texture texture = new Texture("map/black.png");
     private Sprite sprite = new Sprite(texture);
     private Transform transform = new Transform();
+    private String path;
     private boolean isEnabled = true;
 
     public SpriteRenderer() {
@@ -86,15 +87,37 @@ public class SpriteRenderer extends Component {
         this.transform = transform;
     }
 
+    @Override
+    public SpriteRenderer duplicate() {
+        SpriteRenderer newInstance = ComponentFactorySingleton.getInstance().getInstance(SpriteRenderer.class);
+        newInstance.setEnabled(isEnabled);
+        Texture newTexture = new Texture(path);
+        Sprite newSprite = new Sprite(newTexture);
+        newInstance.setTexture(newTexture);
+        newInstance.setSprite(newSprite);
+        newInstance.setTransform(null);
+        return newInstance;
+    }
+
     public static class SpriteRendererBuilder implements ComponentBuilder<SpriteRenderer> {
 
-        private Texture texture = new Texture("map/black.png");
-        private Sprite sprite = new Sprite(texture);
-        private SpriteRenderer instance = null;
-        private Transform transform = new Transform();
+        private Texture texture;
+        private Sprite sprite;
+        private SpriteRenderer instance;
+        private Transform transform;
+        private String texturePath;
         private float width = 1.0f;
         private float height = 1.0f;
         private boolean isEnabled = true;
+
+        public SpriteRendererBuilder() {
+            texture = new Texture("map/black.png");
+            sprite = new Sprite(texture);
+            transform = new Transform();
+            width = 1.0f;
+            height = 1.0f;
+            isEnabled = true;
+        }
 
         public SpriteRendererBuilder withCenteredOrigin() {
             sprite.setSize(width, height);
@@ -132,6 +155,7 @@ public class SpriteRenderer extends Component {
         }
 
         public SpriteRendererBuilder withSprite(String imagePath) {
+            this.texturePath = imagePath;
             this.texture = new Texture(imagePath);
             this.sprite = new Sprite(texture);
             return this;
@@ -159,6 +183,7 @@ public class SpriteRenderer extends Component {
             instance.setTexture(texture);
             instance.setTransform(transform);
             instance.setEnabled(isEnabled);
+            instance.path = new String(texturePath);
             return instance;
         }
     }

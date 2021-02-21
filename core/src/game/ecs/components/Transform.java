@@ -58,6 +58,14 @@ public class Transform extends Component {
         this.position.y = position.y;
     }
 
+    @Override
+    public Transform duplicate() {
+        Transform newTransform = ComponentFactorySingleton.getInstance().getInstance(Transform.class);
+        newTransform.setPosition(this.position);
+        newTransform.setRotation(this.rotation);
+        return newTransform;
+    }
+
     public static class TransformBuilder implements ComponentBuilder<Transform> {
 
         private Transform instance = null;

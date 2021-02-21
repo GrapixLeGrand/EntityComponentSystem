@@ -7,6 +7,7 @@ import game.actors.Constants;
 import game.ecs.components.Behavior;
 import game.ecs.components.SpriteRenderer;
 import game.ecs.components.Transform;
+import game.ecs.entity.Component;
 
 public class PlayerFaceMouse extends Behavior {
 
@@ -27,5 +28,10 @@ public class PlayerFaceMouse extends Behavior {
         mousePosWorld.sub(screenDimsWorld.scl(0.5f));
         Vector2 playerToMouse = mousePosWorld.sub(transform.getPosition()).nor();
         transform.setRotation(playerToMouse.angleDeg() + 270);
+    }
+
+    @Override
+    public Component duplicate() {
+        return new PlayerFaceMouse();
     }
 }

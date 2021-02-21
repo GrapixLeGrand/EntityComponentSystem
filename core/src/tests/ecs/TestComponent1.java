@@ -10,4 +10,9 @@ public class TestComponent1 extends Component {
     public int getDummy() {
         return dummy;
     }
+
+    @Override
+    public TestComponent1 duplicate() {
+        return null;
+    }
 }

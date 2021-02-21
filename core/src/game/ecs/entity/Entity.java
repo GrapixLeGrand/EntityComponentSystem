@@ -3,10 +3,14 @@ package game.ecs.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import game.ecs.Cloneable;
+import game.ecs.EntitiesManagerSingleton;
 import game.ecs.components.Behavior;
 
-public class Entity {
+public class Entity implements Cloneable<Entity> {
 
+    private boolean isEnabled = true;
+    private String tag;
     private int id;
     private static int counter = 0;
     private List<Component> components;
@@ -16,6 +20,7 @@ public class Entity {
         components = new ArrayList<>();
         behaviors = new ArrayList<>();
         id = counter++;
+        tag = "Entity_" + id;
     }
 
     public void startBehaviors() {
@@ -86,28 +91,41 @@ public class Entity {
         return null;
     }
 
-    /*
-    public static class EntityBuilder {
-        private Entity entity;
-        private List<Component> components;
-        public EntityBuilder() {
-            entity = null;
-            components = new ArrayList<>();
-        }
-
-        public EntityBuilder withComponent(Component c) {
-            components.add(c);
-            return this;
-        }
-
-        public Entity build() {
-            entity = new Entity();
-            components.forEach(c -> entity.attachComponent(c));
-            entity.startBehaviors();
-            return entity;
-        }
-
+    public void enable() {
+        isEnabled = true;
+        startBehaviors();
     }
-     */
+
+    public void disable() {
+        isEnabled = false;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getTag() {
+        return this.tag;
+    }
+
+    @Override
+    public Entity duplicate() {
+        Entity newInstance = EntitiesManagerSingleton.getInstance().getEntityInstance();
+
+        for (Component c : components) {
+            newInstance.attachComponent(c.duplicate());
+        }
+
+        for (Behavior b : behaviors) {
+            newInstance.attachComponent(b.duplicate());
+        }
+
+        newInstance.startBehaviors();
+        return newInstance;
+    }
 
 }

@@ -30,6 +30,8 @@ public class EntityFactory {
 
         Entity entity = EntitiesManagerSingleton.getInstance().getEntityInstance();
 
+        entity.setTag("MainCharacter");
+
         float characterSize = 1.2f;
 
         Transform.TransformBuilder tb = new Transform.TransformBuilder();
@@ -64,6 +66,8 @@ public class EntityFactory {
 
         Entity entity = EntitiesManagerSingleton.getInstance().getEntityInstance();
 
+        entity.setTag("Wall");
+
         Transform.TransformBuilder tb = new Transform.TransformBuilder();
         tb.withPosition(position);
         Transform transform = tb.build();
@@ -73,7 +77,7 @@ public class EntityFactory {
         rendererBuilder.withDims(width, height);
         rendererBuilder.withCenteredOrigin();
         rendererBuilder.withTransform(transform);
-        //rendererBuilder.asDisabled();
+        rendererBuilder.asDisabled();
         SpriteRenderer renderer = rendererBuilder.build();
 
         Rigidbody.RigidbodyBuilder rb = new Rigidbody.RigidbodyBuilder();
